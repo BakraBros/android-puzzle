@@ -1,0 +1,22 @@
+{
+  "pieces": [
+    {
+      "name": "Apple",
+      "puzzlePiecePath": "piece/apple.png",
+      "slotPath": "mask/apple.png",
+      "soundPath": ""
+    },
+    {
+      "name": "Apricot",
+      "puzzlePiecePath": "piece/apricot.png",
+      "slotPath": "mask/apricot.png",
+      "soundPath": ""
+    },
+    {
+      "name": "Artichoke",
+      "puzzlePiecePath": "piece/artichoke.png",
+      "slotPath": "mask/artichoke.png",
+      "soundPath": ""
+    }
+  ]
+}
