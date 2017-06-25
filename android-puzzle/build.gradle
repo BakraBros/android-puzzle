@@ -1,0 +1,124 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "0.1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    testCompile 'junit:junit:4.12'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+group = 'com.bakrabros'
+version = '0.1.0'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'Android Library'
+            description 'Drag n Drop puzzles for Android'
+            url 'https://github.com/BakraBros/android-puzzle'
+            inceptionYear '2017'
+
+            packaging 'aar'
+            groupId 'com.bakrabros'
+            artifactId 'android-puzzle'
+            version '0.1.0'
+
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+            scm {
+                connection 'https://github.com/BakraBros/android-puzzle.git'
+                url 'https://github.com/BakraBros/android-puzzle'
+
+            }
+            developers {
+                developer {
+                    id 'chbakouras'
+                    name 'Chrisostomos Bakouras'
+                    email 'chbakouras@gmail.com'
+                }
+                developer {
+                    id 'naxionman'
+                    name 'Nikolaos Chorianopoulos'
+                    email 'naxionman@gmail.com'
+                }
+            }
+        }
+    }
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty('bintray.user')
+    key = properties.get('bintray.apikey')
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'android-puzzle'
+        userOrg = 'bakrabros'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/BakraBros/android-puzzle.git'
+        publish = true
+        version {
+            name = '0.1.0'
+            desc = 'Drag n Drop puzzles for Android'
+            released = new Date()
+            vcsTag = 'v0.1.0'
+            gpg {
+                sign = true
+                passphrase = properties.getProperty("bintray.gpg.password")
+            }
+        }
+    }
+}

@@ -1,1 +1,1 @@
-include ':sample', ':puzzle'
+include ':sample', ':android-puzzle'
