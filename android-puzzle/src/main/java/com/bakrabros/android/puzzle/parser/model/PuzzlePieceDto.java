@@ -1,13 +1,22 @@
 package com.bakrabros.android.puzzle.parser.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author BakraBros
  */
 public class PuzzlePieceDto {
 
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("puzzlePiecePath")
     private String puzzlePiecePath;
+
+    @SerializedName("slotPath")
     private String slotPath;
+
+    @SerializedName("soundPath")
     private String soundPath;
 
     public String getName() {

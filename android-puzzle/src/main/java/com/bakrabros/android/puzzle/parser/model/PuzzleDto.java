@@ -1,5 +1,7 @@
 package com.bakrabros.android.puzzle.parser.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  */
 public class PuzzleDto {
 
+    @SerializedName("pieces")
     private List<PuzzlePieceDto> pieces;
 
     public List<PuzzlePieceDto> getPieces() {
